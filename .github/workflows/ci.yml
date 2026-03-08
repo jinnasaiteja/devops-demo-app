@@ -7,14 +7,18 @@ on:
      - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+      - name: Login to DockerHub
+        uses: docker/login-action@3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME}}
+          password: ${{ secrets.DOCKERHUb_TOKEN}}
       - name: Build Docker image
-        run: docker build -t devops-demo-app .
+        run: docker build -t saitejajinna/devops-demo-app:latest .
 
       - name: Run container test
         run: docker run -d -p 5000:5000 devops-demo-app
