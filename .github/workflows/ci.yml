@@ -18,5 +18,5 @@ jobs:
       - name: Build Docker image
         run: docker build -t devops-demo-app .
 
-      -name: Run container test
-       run: docker run -d -p 5000:5000 devops-demo-app
+      - name: Run container test
+        run: docker run -d -p 5000:5000 devops-demo-app
