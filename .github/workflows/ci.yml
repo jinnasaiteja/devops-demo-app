@@ -20,11 +20,17 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUb_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -t saitejajinna/devops-demo-app:${{ github.sha }} .
+      - name: Build Docker image with both tags
+        run: |
+          docker build -t saitejajinna/devops-demo-app:latest \
+                       -t saitejajinna/devops-demo-app:${{ github.sha }} .
+
 
       - name: Run container test
         run: docker run -d saitejajinna/devops-demo-app:${{ github.sha }}
 
-      - name: push Docker image
+      - name: push latest tag
+        run: docker push saitejajinna/devops-demo-app:latest
+
+      - name: Push commit SHA tag
         run: docker push saitejajinna/devops-demo-app:${{ github.sha }}
