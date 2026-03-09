@@ -34,3 +34,8 @@ jobs:
 
       - name: Push commit SHA tag
         run: docker push saitejajinna/devops-demo-app:${{ github.sha }}
+
+      - name: Deploy to kubernetes
+        run: |
+          kubectl apply -f k8s/deployment.yml
+
